@@ -1,7 +1,14 @@
-import React from "react";
+"use client";
+
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
+import { login } from "./actions";
+
 import Link from "next/link";
 
 const page = () => {
+  const { pending } = useFormStatus();
+  const [state, loginAction] = useActionState(login, undefined);
   return (
     <>
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12 bg-black">
@@ -9,15 +16,15 @@ const page = () => {
           <div className="-mt-[650px]">
             <img src="/logo.png" alt="logo" className=" w-[24] h-[25]" />
           </div>
+          <div className="mb-8 -mt-[500px]">
+            <h1>Welcome back to Room.me!</h1>
+            <p>
+              Room.me is an innovative video conference product that
+              revolutionizes virtual meetings.
+            </p>
+          </div>
           <div className="max-w-xl lg:max-w-3xl">
-            <div>
-              <h1>Welcome back to Room.me!</h1>
-              <p>
-                Room.me is an innovative video conference product that
-                revolutionizes virtual meetings.
-              </p>
-            </div>
-            <form className="mt-8 grid grid-cols-6 gap-6">
+            <form action={loginAction} className="mt-8 grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-4 ">
                 <label
                   htmlFor="Email"
@@ -32,10 +39,11 @@ const page = () => {
                   id="email"
                   placeholder="Enter your email"
                   required
-                  // value={email}
-                  // onChange={(e) => setemail(e.target.value)}
                   className="mt-1 w-full rounded-md border-gray-200  text-sm text-gray-700 shadow-xs dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                 />
+                {state?.errors?.email && (
+                  <p className="text-red-500">{state.errors.email}</p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-4">
@@ -54,6 +62,9 @@ const page = () => {
                   required
                   className="mt-1 w-full rounded-md border-gray-200  text-sm text-gray-700 shadow-xs dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                 />
+                {state?.errors?.password && (
+                  <p className="text-red-500">{state.errors.password}</p>
+                )}
               </div>
 
               <div className="col-span-6">
@@ -78,10 +89,11 @@ const page = () => {
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <button
+                  disabled={pending}
                   type="submit"
                   className="inline-block shrink-0 rounded-md border border-blue-600 bg-cyan-700 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:ring-3 focus:outline-hidden dark:hover:bg-gray-700 dark:hover:text-white"
                 >
-                  Login
+                  Signup
                 </button>
                 <br />
 
@@ -115,7 +127,7 @@ const page = () => {
                 Welcome to Squid 🦑
               </h2> */}
 
-            <p className=" w-96 text-white  transform -translate-y-20 bg-blur">
+            <p className=" w-96 text-white  transform -translate-y-20 backdrop-blur-lg">
               “We love the screen sharing and whiteboarding features, which have
               improved our presentations. Room.me has become an essential tool
               for our team, allowing us to collaborate effectively. Highly
