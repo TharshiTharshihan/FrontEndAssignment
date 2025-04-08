@@ -4,12 +4,6 @@ import { z } from "zod";
 import { createSession, deleteSession } from "../lib/sessions";
 import { redirect } from "next/navigation";
 
-const testUser = {
-  id: "1",
-  email: "a@gmail.com",
-  password: "12345678",
-};
-
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }).trim(),
   password: z
@@ -18,31 +12,8 @@ const loginSchema = z.object({
     .trim(),
 });
 
-export async function login(prevState: any, formData: FormData) {
-  const result = loginSchema.safeParse(Object.fromEntries(formData));
-
-  if (!result.success) {
-    return {
-      errors: result.error.flatten().fieldErrors,
-    };
-  }
-
-  const { email, password } = result.data;
-
-  if (email !== testUser.email || password !== testUser.password) {
-    return {
-      errors: {
-        email: ["Invalid email or password"],
-      },
-    };
-  }
-
-  await createSession(testUser.id);
-
-  redirect("/dashboard");
-}
+import { cookies } from "next/headers";
 
 export async function logout() {
-  await deleteSession();
-  redirect("/login");
+  cookies().delete("logged_in");
 }

@@ -10,13 +10,13 @@ const Page = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const correctEmail = "test@example.com";
-  const correctPassword = "password123";
+  const sampleEmail = "test@visionexdigital.com.au";
+  const samplePassword = "password123";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (email === correctEmail && password === correctPassword) {
+    if (email === sampleEmail && password === samplePassword) {
       router.push("/dashboard");
     } else {
       setError("Invalid email or password.");
@@ -25,13 +25,13 @@ const Page = () => {
 
   return (
     <div className="lg:grid lg:min-h-screen lg:grid-cols-12 bg-black text-white">
-      <section className="flex flex-col justify-center px-8 py-12 sm:px-12 lg:col-span-7 xl:col-span-6">
-        <div className="max-w-xl lg:max-w-3xl w-full">
+      <section className="flex flex-col p-4 justify-center py-12 sm:px-1 lg:col-span-7 xl:col-span-6">
+        <div className="max-w-xl lg:max-w-3xl w-full p-8 ">
           <div className="flex items-center gap-2 mb-3 p-3 ">
             <img
               src="/logo.png"
-              alt="logo"
-              className="w-6 h-6 fill-blue-500 -mt-40"
+              alt="Logo"
+              className="w-6 h-6 fill-blue-500 -mt-40 flex  "
             />
             <span className="text-lg font-Days One text-white -mt-40">
               Room Me!
@@ -57,7 +57,7 @@ const Page = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="mt-1 w-2xl rounded-md border border-gray-700 bg-gray-800 p-2 text-sm text-white"
+                className="mt-1 w-full rounded-md border border-gray-700 bg-gray-800 p-2 text-sm text-white"
               />
             </div>
 
@@ -107,7 +107,7 @@ const Page = () => {
             </div>
 
             <p className="text-sm text-gray-400 text-center">
-              Don’t have an account?{" "}
+              Don’t have an account?
               <Link href="/signup" className="underline text-white">
                 Sign up
               </Link>
@@ -119,7 +119,7 @@ const Page = () => {
       <section className="relative hidden lg:flex lg:col-span-5 xl:col-span-6 items-center justify-center  ">
         <img
           src="/login.png"
-          alt="Testimonial"
+          alt="Login"
           className="absolute inset-0 h-full w-[700px]  object-cover opacity-80 rounded-[40px] p-2"
         />
         <div className="relative  max-w-md text-white backdrop-blur-md p-6 rounded-xl ">

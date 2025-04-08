@@ -43,3 +43,7 @@ export async function decrypt(session: string | undefined = "") {
     console.log("Failed to verify session");
   }
 }
+
+export async function logout() {
+  cookies().delete("logged_in");
+}
